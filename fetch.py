@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 import tarfile
 import io
 import time
+import sys
 
 
 def fetch_data():
@@ -36,6 +37,9 @@ def fetch_data():
             print(f"Error: {e}")
             print("Retrying in 30 seconds...")
             time.sleep(30)
+    else:
+        print("Failed to download data after 10 retries.")
+        sys.exit(1)
 
 if __name__ == '__main__':
     URL = 'https://opendata.aemet.es/opendata/api/observacion/convencional/todas'
