@@ -1,0 +1,35 @@
+name: Fetch AEMET Data Every 6 Hours
+on:
+  schedule:
+    - cron: '0 0,6,12,18 * * *'  # At 00:00, 06:00, 12:00, and 18:00 UTC
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run fetch script
+        env:
+          AEMET_API_KEY: ${{ secrets.AEMET_API_KEY }}
+        run: |
+          python fetch.py
+
+      - name: List files after fetch
+        run: ls -a .
+
+      - name: Upload AEMET data as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: aemet-data
+          path: output/*.tar.xz
