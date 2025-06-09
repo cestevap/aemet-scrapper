@@ -36,7 +36,7 @@ def fetch_data():
             retries = retries + 1
             print(f"Error: {e}")
             print("Retrying in 30 seconds...")
-            time.sleep(30)
+            time.sleep(15)
     else:
         print("Failed to download data after 10 retries.")
         sys.exit(1)
