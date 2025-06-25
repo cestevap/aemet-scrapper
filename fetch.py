@@ -11,7 +11,7 @@ def fetch_data():
     headers = {'accept': 'application/json'}
     params = {'api_key': API_KEY}
     retries = 0
-    while retries < 3:
+    while retries < 10:
         try:
             r = requests.get(URL, headers=headers, params=params)
             if r.status_code != 200:
@@ -35,8 +35,8 @@ def fetch_data():
         except Exception as e:
             retries = retries + 1
             print(f"Error: {e}")
-            print("Retrying in 30 seconds...")
-            time.sleep(15)
+            print("Retrying in 5 seconds...")
+            time.sleep(5)
     else:
         print("Failed to download data after 10 retries.")
         sys.exit(1)
