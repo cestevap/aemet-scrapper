@@ -11,7 +11,7 @@ def fetch_data():
     headers = {'accept': 'application/json'}
     params = {'api_key': API_KEY}
     retries = 0
-    while retries < 10:
+    while retries < 3:
         try:
             r = requests.get(URL, headers=headers, params=params)
             if r.status_code != 200:
